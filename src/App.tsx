@@ -1,10 +1,10 @@
-import { Box, Button, Center, ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 import { useState } from "react";
-// import EnhancedComponent from "./pages/HOC";
-// import UseEffectCleanUp from "./pages/UseEffectCleanUp";
-// import Example from "./pages/Ref";
+import EnhancedComponent from "./pages/HOC/test";
+import {UseEffectCleanUp} from "./pages/UseEffectCleanUp";
+import {UseRefExample1, UseRefExample2 } from "./pages/Ref";
 import ParentContext from "./pages/Context/parentContext";
-// import Reducer from "./pages/Reducer";
+import Reducer from "./pages/Reducer";
 
 export function App() {
   const [isHidden, setIsHidden] = useState(false);
@@ -15,16 +15,27 @@ export function App() {
 
   return (
     <ChakraProvider>
-      {/* <EnhancedComponent />
-          <UseEffectCleanUp />
-          <Example />
-          <Reducer />
-          <ParentContext />
-       */}
-      <Center mt={3}>
-        <Button onClick={toggle}>{isHidden ? "Show Me" : "Hide Me"}</Button>
-        <Box>{isHidden ? "" : "I am Here!!!"}</Box>
-      </Center>
+      {/* Note: HOC implementation */}
+      <EnhancedComponent />
+      
+      {/* Note: to test the component unmount cleanup function trigger */}
+      <div>
+        <button onClick={toggle}>
+          click me
+        </button>
+      {!isHidden && <UseEffectCleanUp />}
+      </div>
+
+      <UseRefExample1 />
+      {/* Note: how ref does not cause re-rendering */}
+      <UseRefExample2 />
+
+      {/* Note: context example */}
+      <ParentContext />
+
+      {/* Note: reducer example */}
+      <Reducer />
+      
     </ChakraProvider>
   );
 }

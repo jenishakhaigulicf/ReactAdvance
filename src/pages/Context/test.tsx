@@ -1,21 +1,28 @@
-import { createContext, useContext } from "react"
+import { createContext, useContext } from "react";
 
-const DataContext = createContext("")
+const DataContext = createContext({name:"", job:""});
+// const DataContext2 = createContext("");
 const ParentContext = () => {
-  return <DataContext.Provider value="Jenisha"><Child1/></DataContext.Provider>
-}
+  return (
+    <DataContext.Provider value={{name:"Jenisha", job:"--"}}>
+      <ChildCard1></ChildCard1>;
+    </DataContext.Provider>
+  );
+};
 
-const Child1 = () => {
-  return <Child2/>
-}
+const ChildCard1 = () => {
+  return <ChildCard2></ChildCard2>;
+};
+const ChildCard2 = () => {
+  return <ChildCard3></ChildCard3>;
+};
+const ChildCard3 = () => {
+  return <ChildCard></ChildCard>;
+};
+const ChildCard = () => {
+  const data = useContext(DataContext);
+  // const data = useContext(DataContext2);
+  return <>I am here {data.name} {data.job}</>
+};
 
-const Child2 = () => {
-  return <ChildrenContext/>
-}
-
-const ChildrenContext = () => {
-  const user = useContext(DataContext)
-  return <>data from parent {user}</>
-}
-
-export default ParentContext
+export default ParentContext;

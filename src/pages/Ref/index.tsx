@@ -1,47 +1,39 @@
 import { useRef, useState } from "react";
 
-const RefSnippet = () => {
-  const count = useRef(0);
-  const inputElementRef: React.LegacyRef<HTMLInputElement> = useRef(null);
-  // let [a, setA] = useState(0);
-  const clickHandler = () => {
-    if (inputElementRef.current) {
-      inputElementRef.current.focus();
-    }
-    count.current++;
-    // setA((prev) => prev + 1);
-    // console.log("count: ", count, "a: ", a);
-    // setA((prev) => prev + 2);
+export const UseRefExample1 = () => {
+  const inputRef: React.LegacyRef<HTMLInputElement> | null = useRef(null);
+
+  const focusInput = () => {
+    inputRef.current?.focus();
   };
+
   return (
     <div>
-      <input type="text" ref={inputElementRef} />
-      <button onClick={clickHandler}>
-        {/* {a}--- */}
-        {count.current}
-      </button>
+      <div>
+        <input ref={inputRef} type="text" />
+      </div>
+      <button onClick={focusInput}>Click Me</button>
     </div>
   );
 };
 
-export default RefSnippet;
+export const UseRefExample2 = () => {
+  const countRef = useRef(0);
+  const [count, setCount] = useState(0);
 
-// const Example = () => {
-//   const count = useRef(0);
-//   const [a, setA] = useState(0);
-//   const clickHandler = () => {
-//     count.current++;
-//     setA(a + 1);
-//     console.log("a---> ", a);
-//     console.log("count---> ", count.current);
-//   };
-//   return (
-//     <div>
-//       <button onClick={clickHandler}>+</button>
-//       {a}
-//       {count.current}
-//     </div>
-//   );
-// };
+  const countUpdate = () => {
+    countRef.current++;
+    setCount(count + 1);
+    console.log("count:", count, "countRef:", countRef.current);
+  };
 
-// export default Example;
+  return (
+    <>
+      <button onClick={countUpdate}>+</button>
+      <div>
+        {countRef.current}
+        {count}
+      </div>
+    </>
+  );
+};
