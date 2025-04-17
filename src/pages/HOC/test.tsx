@@ -1,24 +1,21 @@
 import { useState } from "react";
 
-const higherOrderComponent = (
-  WrappedComponent: ({ name }: { name: string }) => JSX.Element
-) => {
+const SimpleComponent = ({ data }: { data: string }) => {
+  return <>Hello there i am simple component called by {data}</>;
+};
+
+const hoc = (SimpleComponent: ({ data }: { data: string }) => JSX.Element) => {
   return function HigherOrderComponent() {
-    // Note: same api call
-    const [name, _setName] = useState("Jen");
+    const [name, _setName] = useState("Jenisha");
     return (
       <>
-        <div>HOC</div>
-        {/* different UI */}
-        <WrappedComponent name={name} />
+        i am parentContext
+        <SimpleComponent data={name} />
       </>
     );
   };
 };
 
-const WrappedComponent = ({ name }: { name: string }) => {
-  return <>My name is {name}</>;
-};
+const EnhancedComponent = hoc(SimpleComponent);
 
-const SimpleComponent = higherOrderComponent(WrappedComponent);
-export default SimpleComponent;
+export default EnhancedComponent;

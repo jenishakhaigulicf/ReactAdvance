@@ -11,13 +11,13 @@ const higherOrderComponent = (WrappedComponent: IWrappedComponent) => {
   };
 };
 
-const SimpleComponent = higherOrderComponent(({ name }: IProp) => {
+const SimpleComponent = (({ name }: IProp) => {
   return <>I am Simple Component {name}</>;
 });
 
-// const EnhancedComponent = higherOrderCo¬mponent(SimpleComponent);
+const EnhancedComponent = higherOrderComponent(SimpleComponent);
 
 type IWrappedComponent = (props: IProp) => JSX.Element;
 type IProp = { name: string }
 
-export default SimpleComponent;
+export default EnhancedComponent;

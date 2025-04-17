@@ -15,6 +15,9 @@ import { useEffect, useState } from "react";
 //     return () => {
 //       window.removeEventListener("resize", resizeFunc);
 //     };
+// // when we don't have the cleanup function and
+// // when we leave the dependency array empty
+// // then on every component mount the number of event listener will keep on increasing
 //   }, []);
 
 //   return <div>This is the width: {width} </div>;
@@ -25,7 +28,9 @@ export const UseEffectCleanUp = () => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
+    // NOTE: guard clause
     if (timer <= 0) return;
+    // use setInterval instead of setTimeout
     const timerFunc = setTimeout(() => {
       setTimer((prev) => {
         return prev - 1;
@@ -33,7 +38,7 @@ export const UseEffectCleanUp = () => {
       // setTimer((prev) => {
       //   return prev - 1;
       // });
-      // Note: if we add the above code and this code as well then issue occurs
+      // Note: if we add the above code and this code(both of the codes) as well then issue occurs
       // setTimer(timer - 1);
       // setTimer(timer - 1);
     }, 1000);

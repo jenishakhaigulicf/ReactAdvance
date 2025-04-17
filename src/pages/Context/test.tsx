@@ -1,28 +1,32 @@
+// we created a context createContext
+// then we wrapped the child with the provider
+// context.provider and passed the value
+// we use the context useContext(context_name)
+
 import { createContext, useContext } from "react";
 
-const DataContext = createContext({name:"", job:""});
-// const DataContext2 = createContext("");
+const dataContext = createContext<{ name: string } | null>(null);
+
 const ParentContext = () => {
   return (
-    <DataContext.Provider value={{name:"Jenisha", job:"--"}}>
-      <ChildCard1></ChildCard1>;
-    </DataContext.Provider>
+    <dataContext.Provider value={{ name: "Jenisha" }}>
+      <ChildContext1 />
+    </dataContext.Provider>
   );
 };
 
-const ChildCard1 = () => {
-  return <ChildCard2></ChildCard2>;
+const ChildContext1 = () => {
+  return <ChildContext2 />;
 };
-const ChildCard2 = () => {
-  return <ChildCard3></ChildCard3>;
+const ChildContext2 = () => {
+  return <ChildContext3 />;
 };
-const ChildCard3 = () => {
-  return <ChildCard></ChildCard>;
+const ChildContext3 = () => {
+  return <ChildContext />;
 };
-const ChildCard = () => {
-  const data = useContext(DataContext);
-  // const data = useContext(DataContext2);
-  return <>I am here {data.name} {data.job}</>
+const ChildContext = () => {
+  const data = useContext(dataContext);
+  return <>--------Hello i am child of {data?.name}-------</>;
 };
 
 export default ParentContext;
